@@ -4,14 +4,16 @@ using LATimesheet.Data.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LATimesheet.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211019052759_timetracker")]
+    partial class timetracker
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,9 +28,6 @@ namespace LATimesheet.Data.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
-
-                    b.Property<string>("ClockStatus")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -94,9 +93,6 @@ namespace LATimesheet.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("Date")
                         .HasColumnType("nvarchar(max)");
 
@@ -106,12 +102,7 @@ namespace LATimesheet.Data.Migrations
                     b.Property<DateTime>("Time")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("TimeTrackers");
                 });
@@ -247,15 +238,6 @@ namespace LATimesheet.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("LATimesheet.Data.Entities.TimeTracker", b =>
-                {
-                    b.HasOne("LATimesheet.Data.Entities.ApplicationUser", "ApplicationUser")
-                        .WithMany("TimeTracker")
-                        .HasForeignKey("ApplicationUserId");
-
-                    b.Navigation("ApplicationUser");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -305,11 +287,6 @@ namespace LATimesheet.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("LATimesheet.Data.Entities.ApplicationUser", b =>
-                {
-                    b.Navigation("TimeTracker");
                 });
 #pragma warning restore 612, 618
         }

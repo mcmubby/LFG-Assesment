@@ -1,1 +1,56 @@
-<p>login successful!</p>
+@model LATimesheet.Models.DashboardViewModel
+<div>
+    <div class="card">
+        <div class="card-body">
+            @if (Model.Status == "ClockedIn")
+            {
+                <form method="GET">
+                    <h5 class="card-title" style="float: left;">Username: @Model.Username</h5>
+                    <button class="btn btn-primary" style="float: right;" asp-action="ClockOut" asp-controller="Dashboard">Clock Out</button>
+                </form>
+            }
+            else
+            {
+                <form method="GET">
+                    <h5 class="card-title" style="float: left;">Username: @Model.Username</h5>
+                    <button class="btn btn-primary" style="float: right;" asp-action="ClockIn" asp-controller="Dashboard">Clock In</button>
+                </form>             
+            }
+        </div>
+    </div>
+</div>
+
+
+<hr>
+<div>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Status</th>
+      <th scope="col">Time</th>
+    </tr>
+  </thead>
+  <tbody>
+      @foreach (var clock in Model.ClockHistory)
+      {
+          if (clock.Status == "ClockedIn")
+          {
+                <tr class="table-success">
+                    <td>@clock.Date</td>
+                    <td>@clock.Status</td>
+                    <td>@clock.Time</td>
+                </tr>
+          }
+          else
+          {
+              <tr class="table-danger">
+                <td>@clock.Date</td>
+                <td>@clock.Status</td>
+                <td>@clock.Time</td>
+            </tr>
+          }
+      }
+  </tbody>
+</table>
+</div>

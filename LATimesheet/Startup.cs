@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using LATimesheet.Data.DbContexts;
 using LATimesheet.Data.Entities;
 using LATimesheet.SeededUsers;
+using LATimesheet.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,6 +31,7 @@ namespace LATimesheet
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<ITimeTracker, TimeTrackerService>();
             services.AddDbContextPool<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DbConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -74,6 +76,7 @@ namespace LATimesheet
             });
 
             MigrationHelper.MigrateDatabaseContext(svp);
+            MigrationHelper.SeedEssentialsAsync(svp).GetAwaiter().GetResult();
         }
     }
 }

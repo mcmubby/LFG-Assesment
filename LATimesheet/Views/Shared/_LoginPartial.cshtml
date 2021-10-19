@@ -1,0 +1,14 @@
+@using Microsoft.AspNetCore.Identity
+@using LATimesheet.Data.Entities
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <form method = "Get">
+        <div>
+            <h5 style="float: left;">@DateTime.Now.ToLongDateString()</h5>
+            <button class="btn btn-primary" style="float: right;" asp-action="logout" asp-controller="Home">Logout</button>
+        </div>
+    </form>
+}

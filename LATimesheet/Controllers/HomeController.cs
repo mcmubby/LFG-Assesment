@@ -36,16 +36,27 @@ namespace LATimesheet.Controllers
                 if (!result.Succeeded)
                 {
                     ModelState.AddModelError("", "Login failed, please check your details");
+                    _logger.LogInformation($"{model.Username} Sign-In Failed");
                     return View();
                 }
+
+                _logger.LogInformation($"{model.Username} Sign-In Succeful");
 
                 return Redirect("/dashboard");
             }
             catch (Exception e)
             {
                 ModelState.AddModelError("", e.Message);
+                _logger.LogInformation(e.Message);
                 return View();
             }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> logout()
+        {
+            await _signInManager.SignOutAsync();
+            return LocalRedirect("/");
         }
     }
 }

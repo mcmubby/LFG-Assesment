@@ -10,5 +10,7 @@ namespace LATimesheet.Data.DbContexts
         {
 
         }
+
+        public DbSet<TimeTracker> TimeTrackers { get; set; }
     }
 }
