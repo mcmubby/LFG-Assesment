@@ -1,0 +1,38 @@
+﻿@model LATimesheet.Models.LoginModel
+@{
+    ViewData["Title"] = "Login Page";
+}
+
+<div style="margin: auto; max-width: 50%; min-width: 50%; padding-top: 2%;">
+        <div class="login-box">
+
+            <div class="login-title">
+                TIMESHEET
+            </div>
+
+            <div class="login-form">
+                <div class="login-form">
+
+                    <form asp-action="Index" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <label class="form-control-label">USERNAME</label>
+                            <input type="text" class="form-control" asp-for="Username" required>
+                            <span class="text-danger" asp-validation-for="Username"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label">PASSWORD</label>
+                            <input type="password" class="form-control" asp-for="Password" required>
+                            <span class="text-danger" asp-validation-for="Password"></span>
+                        </div>
+
+                        <div class="login-btm login-button">
+                            <button type="submit" class="btn btn-outline-primary">LOGIN</button>
+                        </div>
+                        
+                    </form>
+            </div>
+        </div>
+    <div class="col-lg-3 col-md-2"></div>
+</div>
